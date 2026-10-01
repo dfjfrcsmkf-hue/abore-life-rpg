@@ -4,7 +4,7 @@
 // Incrementing CACHE_VERSION will kick off the install event and force
 // previously cached resources to be updated from the network.
 /** @type {string} */
-const CACHE_VERSION = '1790839059|1118283';
+const CACHE_VERSION = '1790855611|1305459';
 /** @type {string} */
 const CACHE_PREFIX = 'ABORE LIFE RPG-sw-cache-';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
@@ -14,7 +14,7 @@ const OFFLINE_URL = 'index.offline.html';
 const ENSURE_CROSSORIGIN_ISOLATION_HEADERS = false;
 // Files that will be cached on load.
 /** @type {string[]} */
-const CACHED_FILES = ["index.html", "index.js", "index.offline.html", "index.audio.worklet.js", "index.audio.position.worklet.js", "index.144x144.png", "index.180x180.png", "index.512x512.png"];
+const CACHED_FILES = ["index.html","index.js","index.offline.html","index.audio.worklet.js","index.audio.position.worklet.js"];
 // Files that we might not want the user to preload, and will only be cached on first load.
 /** @type {string[]} */
 const CACHEABLE_FILES = ["index.wasm","index.pck"];
@@ -164,15 +164,3 @@ self.addEventListener('message', (event) => {
 	});
 });
 
-// ABORE LIFE RPG update activation
-self.addEventListener('install', (event) => {
-	event.waitUntil(self.skipWaiting());
-});
-
-self.addEventListener('activate', (event) => {
-	event.waitUntil(
-		self.clients.claim()
-			.then(() => self.clients.matchAll({ type: 'window', includeUncontrolled: true }))
-			.then((clients) => Promise.all(clients.map((client) => client.navigate(client.url))))
-	);
-});
