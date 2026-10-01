@@ -4,7 +4,7 @@
 // Incrementing CACHE_VERSION will kick off the install event and force
 // previously cached resources to be updated from the network.
 /** @type {string} */
-const CACHE_VERSION = '1790831640|983574';
+const CACHE_VERSION = '1790831804|1215554';
 /** @type {string} */
 const CACHE_PREFIX = 'ABORE LIFE RPG-sw-cache-';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
@@ -170,5 +170,9 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
-	event.waitUntil(self.clients.claim());
+	event.waitUntil(
+		self.clients.claim()
+			.then(() => self.clients.matchAll({ type: 'window', includeUncontrolled: true }))
+			.then((clients) => Promise.all(clients.map((client) => client.navigate(client.url))))
+	);
 });
