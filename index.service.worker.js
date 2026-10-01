@@ -4,7 +4,7 @@
 // Incrementing CACHE_VERSION will kick off the install event and force
 // previously cached resources to be updated from the network.
 /** @type {string} */
-const CACHE_VERSION = '1790835681|936816';
+const CACHE_VERSION = '1790835879|1083800';
 /** @type {string} */
 const CACHE_PREFIX = 'ABORE LIFE RPG-sw-cache-';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
