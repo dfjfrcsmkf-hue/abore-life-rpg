@@ -4,7 +4,7 @@
 // Incrementing CACHE_VERSION will kick off the install event and force
 // previously cached resources to be updated from the network.
 /** @type {string} */
-const CACHE_VERSION = '1793244608|1147697';
+const CACHE_VERSION = '1793244823|6678318';
 /** @type {string} */
 const CACHE_PREFIX = 'ABORE LIFE RPG-sw-cache-';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
@@ -95,6 +95,11 @@ self.addEventListener(
 	 */
 	(event) => {
 		const isNavigate = event.request.mode === 'navigate';
+		// ABORE network-first pck
+		if ((event.request.url || '').split('?')[0].endsWith('/index.pck')) {
+			event.respondWith(fetch(event.request, { cache: 'no-store' }).catch(() => caches.match(event.request)));
+			return;
+		}
 		const url = event.request.url || '';
 		const referrer = event.request.referrer || '';
 		const base = referrer.slice(0, referrer.lastIndexOf('/') + 1);
